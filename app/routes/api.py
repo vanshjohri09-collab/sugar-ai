@@ -335,13 +335,8 @@ async def change_model(
         raise HTTPException(status_code=500, detail=f"Error changing model: {str(e)}")
 
 @router.get("/models")
-async def get_models():
-    """Return list of available AI models"""
+def get_models():
     return {
-        "models": [
-            "Qwen2-1.5B",
-            "Mistral",
-            "Llama"
-        ],
-        "default_model": settings.DEFAULT_MODEL
+        "current_model": settings.DEFAULT_MODEL,
+        "provider": settings.AI_PROVIDER if hasattr(settings, 'AI_PROVIDER') else "huggingface"
     }
